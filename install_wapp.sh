@@ -5,4 +5,5 @@ if [ "$1" == "" ] ; then
   exit 1
 fi
 
-tar cf $1 -C /usr/share/mgcpt/apps/
+tar cf "$1" ./
+#/usr/share/mgcpt/apps/

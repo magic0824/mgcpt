@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 
-from asyncio import subprocess
+import subprocess
 import platform
 import os
 from struct import pack
 import sys
 import requests
+import urllib.request
 import gzip
 
 pretty_name=""
@@ -46,12 +47,8 @@ def install(name):
 	print('This feature is under development.')
 	return
 
-def getBinaryFileFromWebUsingChunk(url, fname):
-	file = requests.get(url, stream=True)
-	with open(fname, 'wb') as bin:
-		for chunk in file.iter_content(chunk_size=1024):
-			if chunk:
-				bin.write(chunk)
+def getBinaryFileFromWeb(url, fname):
+	urllib.request.urlretrieve(url, fname)
 	return
 
 def getPackages(name):
@@ -72,8 +69,8 @@ def getPackages(name):
 		print('Sorry, package {} is not found.'.format(name))
 		return
 	if foundPackage == True:
-		getBinaryFileFromWebUsingChunk(nowurl, "/tmp/mgcpt_main.tar")
-		subprocess.run(["install_wapp.sh", "/tmp/mgcpt_main.tar"])
+		getBinaryFileFromWeb(nowurl, "mgcpt_main.tar")
+		subprocess.run(["./install_wapp.sh", "./mgcpt_main.tar"])
 
 	
 	
