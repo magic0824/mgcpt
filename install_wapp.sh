@@ -1,9 +1,12 @@
 #!/bin/bash
 
 if [ "$1" == "" ] ; then
-  echo "gz filename is required."
+  echo "url is required."
   exit 1
 fi
 
-tar cf "$1" ./
-#/usr/share/mgcpt/apps/
+wget "$1"
+
+tar -xvf ./main.tar -C /usr/share/mgcpt/apps/
+
+rm ./main.tar

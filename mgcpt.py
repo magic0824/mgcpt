@@ -47,11 +47,11 @@ def install(name):
 	print('This feature is under development.')
 	return
 
-def getBinaryFileFromWeb(url, fname):
-	urllib.request.urlretrieve(url, fname)
+def list_app():
+	print('This feature is under development.')
 	return
 
-def getPackages(name):
+def installwapp(name):
 	URL="https://raw.githubusercontent.com/magic0824/mgcpt/main/wapps/PackagesList"
 	plfile = requests.get(URL, allow_redirects=True)
 	plfileContent3 = plfile.content
@@ -69,11 +69,19 @@ def getPackages(name):
 		print('Sorry, package {} is not found.'.format(name))
 		return
 	if foundPackage == True:
-		getBinaryFileFromWeb(nowurl, "mgcpt_main.tar")
-		subprocess.run(["./install_wapp.sh", "./mgcpt_main.tar"])
+		subprocess.run(["./install_wapp.sh", nowurl])
+	return
 
-	
-	
+def getwappList():
+	URL="https://raw.githubusercontent.com/magic0824/mgcpt/main/wapps/PackagesList"
+	plfile = requests.get(URL, allow_redirects=True)
+	plfileContent3 = plfile.content
+	plfileContent2 = plfileContent3.decode('utf-8')
+	plfileContent = plfileContent2.split('\n')
+	for packageInfo2 in plfileContent:
+		packageInfo = packageInfo2.split(',')
+		print('Package Name: {}\n\tPackage URL: {}'.format(packageInfo[0],packageInfo[1]))
+	return
 
 def install_wapp(name):
 	if name == '':
@@ -83,7 +91,7 @@ def install_wapp(name):
 	if y_or_n() == False:
 		print('Install is stoped.')
 		return
-	getPackages(name)
+	installwapp(name)
 	print('Successfuly installed {}"'.format(name))
 	return
 
@@ -100,3 +108,7 @@ if __name__ == '__main__':
 	elif command == "install-wapp":
 		package=get_package()
 		install_wapp(package)
+	elif command == "list":
+		list_app()
+	elif command == "list-wapp":
+		getwappList()
