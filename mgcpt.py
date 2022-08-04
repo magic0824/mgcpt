@@ -49,6 +49,12 @@ def getFileFromWeb(url, fname, mode):
 	file = requests.get(url, allow_redirects=True)
 	open(fname, mode).write(file.content)
 
+def getPackagesList():
+	URL="https://raw.githubusercontent.com/magic0824/mgcpt/main/wapps/PackagesList"
+	file = requests.get(URL, allow_redirects=True)
+	fileContent = file.content
+	print(''.format(type(fileContent)))
+
 def install_wapp(name):
 	if name == '':
 		print('No packages spectified.')
@@ -57,7 +63,6 @@ def install_wapp(name):
 	if y_or_n() == False:
 		print('Install is stoped.')
 		return
-	getFileFromWeb("", "", '')
 	print('Successfuly installed {}"'.format(name))
 	return
 
