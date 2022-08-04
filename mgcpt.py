@@ -73,7 +73,7 @@ def getPackages(name):
 		return
 	if foundPackage == True:
 		getBinaryFileFromWebUsingChunk(nowurl, "/tmp/mgcpt_main.tar")
-		subprocess.run(["install_wapp", "/tmp/mgcpt_main.tar"])
+		subprocess.run(["install_wapp.sh", "/tmp/mgcpt_main.tar"])
 
 	
 	
